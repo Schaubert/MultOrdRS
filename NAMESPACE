@@ -1,0 +1,10 @@
+useDynLib(MultOrdRS, .registration = TRUE)
+
+importFrom(statmod, gauss.quad)
+importFrom(Rcpp, evalCpp)
+
+exportClasses("MultOrdRS")
+export(multordRS, ctrl.multordRS)
+
+S3method(plot, MultOrdRS)
+S3method(print, MultOrdRS)
