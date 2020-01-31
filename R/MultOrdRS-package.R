@@ -10,7 +10,7 @@
 #' @docType package
 #' @author Gunther Schauberger\cr \email{gunther.schauberger@@tum.de}\cr
 #' \url{https://www.researchgate.net/profile/Gunther_Schauberger2}
-#' @seealso \code{\link{multordRS}  \code{\link{ctrl.multordRS}}  \code{\link{plot.MultOrdRS}}
+#' @seealso \code{\link{multordRS}}  \code{\link{ctrl.multordRS}}  \code{\link{plot.MultOrdRS}}
 #' @keywords multivariate ordinal response style adjacent categories cumulative 
 #' @examples
 #' \dontrun{

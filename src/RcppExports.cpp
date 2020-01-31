@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // scoreMO
 arma::vec scoreMO(arma::vec alpha, arma::vec Y, arma::mat X, int Q, int q, int n, int I, int pall, int pX, int pXRS, int pthresh, int pshift, int prnd, arma::mat GHweights, arma::vec GHnodes, int scaled, arma::mat dthresh, double cores, double lambda);
-RcppExport SEXP _MultOrd_scoreMO(SEXP alphaSEXP, SEXP YSEXP, SEXP XSEXP, SEXP QSEXP, SEXP qSEXP, SEXP nSEXP, SEXP ISEXP, SEXP pallSEXP, SEXP pXSEXP, SEXP pXRSSEXP, SEXP pthreshSEXP, SEXP pshiftSEXP, SEXP prndSEXP, SEXP GHweightsSEXP, SEXP GHnodesSEXP, SEXP scaledSEXP, SEXP dthreshSEXP, SEXP coresSEXP, SEXP lambdaSEXP) {
+RcppExport SEXP _MultOrdRS_scoreMO(SEXP alphaSEXP, SEXP YSEXP, SEXP XSEXP, SEXP QSEXP, SEXP qSEXP, SEXP nSEXP, SEXP ISEXP, SEXP pallSEXP, SEXP pXSEXP, SEXP pXRSSEXP, SEXP pthreshSEXP, SEXP pshiftSEXP, SEXP prndSEXP, SEXP GHweightsSEXP, SEXP GHnodesSEXP, SEXP scaledSEXP, SEXP dthreshSEXP, SEXP coresSEXP, SEXP lambdaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -37,7 +37,7 @@ END_RCPP
 }
 // loglikMO
 double loglikMO(arma::vec alpha, arma::vec Y, arma::mat X, int Q, int q, int n, int I, int pall, int pX, int pXRS, int pthresh, int pshift, int prnd, arma::mat GHweights, arma::vec GHnodes, int scaled, arma::mat dthresh, int cores, double lambda);
-RcppExport SEXP _MultOrd_loglikMO(SEXP alphaSEXP, SEXP YSEXP, SEXP XSEXP, SEXP QSEXP, SEXP qSEXP, SEXP nSEXP, SEXP ISEXP, SEXP pallSEXP, SEXP pXSEXP, SEXP pXRSSEXP, SEXP pthreshSEXP, SEXP pshiftSEXP, SEXP prndSEXP, SEXP GHweightsSEXP, SEXP GHnodesSEXP, SEXP scaledSEXP, SEXP dthreshSEXP, SEXP coresSEXP, SEXP lambdaSEXP) {
+RcppExport SEXP _MultOrdRS_loglikMO(SEXP alphaSEXP, SEXP YSEXP, SEXP XSEXP, SEXP QSEXP, SEXP qSEXP, SEXP nSEXP, SEXP ISEXP, SEXP pallSEXP, SEXP pXSEXP, SEXP pXRSSEXP, SEXP pthreshSEXP, SEXP pshiftSEXP, SEXP prndSEXP, SEXP GHweightsSEXP, SEXP GHnodesSEXP, SEXP scaledSEXP, SEXP dthreshSEXP, SEXP coresSEXP, SEXP lambdaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -66,7 +66,7 @@ END_RCPP
 }
 // loglikMO_noRS
 double loglikMO_noRS(arma::vec alpha, arma::vec Y, arma::mat X, int Q, int q, int n, int I, int pall, int pX, int pthresh, int pshift, arma::vec GHweights, arma::vec GHnodes, arma::mat dthresh, int cores, double lambda);
-RcppExport SEXP _MultOrd_loglikMO_noRS(SEXP alphaSEXP, SEXP YSEXP, SEXP XSEXP, SEXP QSEXP, SEXP qSEXP, SEXP nSEXP, SEXP ISEXP, SEXP pallSEXP, SEXP pXSEXP, SEXP pthreshSEXP, SEXP pshiftSEXP, SEXP GHweightsSEXP, SEXP GHnodesSEXP, SEXP dthreshSEXP, SEXP coresSEXP, SEXP lambdaSEXP) {
+RcppExport SEXP _MultOrdRS_loglikMO_noRS(SEXP alphaSEXP, SEXP YSEXP, SEXP XSEXP, SEXP QSEXP, SEXP qSEXP, SEXP nSEXP, SEXP ISEXP, SEXP pallSEXP, SEXP pXSEXP, SEXP pthreshSEXP, SEXP pshiftSEXP, SEXP GHweightsSEXP, SEXP GHnodesSEXP, SEXP dthreshSEXP, SEXP coresSEXP, SEXP lambdaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -92,7 +92,7 @@ END_RCPP
 }
 // scoreMO_noRS
 arma::vec scoreMO_noRS(arma::vec alpha, arma::vec Y, arma::mat X, int Q, int q, int n, int I, int pall, int pX, int pthresh, int pshift, arma::vec GHweights, arma::vec GHnodes, arma::mat dthresh, double cores, double lambda);
-RcppExport SEXP _MultOrd_scoreMO_noRS(SEXP alphaSEXP, SEXP YSEXP, SEXP XSEXP, SEXP QSEXP, SEXP qSEXP, SEXP nSEXP, SEXP ISEXP, SEXP pallSEXP, SEXP pXSEXP, SEXP pthreshSEXP, SEXP pshiftSEXP, SEXP GHweightsSEXP, SEXP GHnodesSEXP, SEXP dthreshSEXP, SEXP coresSEXP, SEXP lambdaSEXP) {
+RcppExport SEXP _MultOrdRS_scoreMO_noRS(SEXP alphaSEXP, SEXP YSEXP, SEXP XSEXP, SEXP QSEXP, SEXP qSEXP, SEXP nSEXP, SEXP ISEXP, SEXP pallSEXP, SEXP pXSEXP, SEXP pthreshSEXP, SEXP pshiftSEXP, SEXP GHweightsSEXP, SEXP GHnodesSEXP, SEXP dthreshSEXP, SEXP coresSEXP, SEXP lambdaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -118,7 +118,7 @@ END_RCPP
 }
 // loglikMO_cumul
 double loglikMO_cumul(arma::vec alpha, arma::vec Y, arma::mat X, int Q, int q, int n, int I, int pall, int pX, int pXRS, int pthresh, int pshift, int prnd, arma::mat GHweights, arma::vec GHnodes, int scaled, int cores, double lambda);
-RcppExport SEXP _MultOrd_loglikMO_cumul(SEXP alphaSEXP, SEXP YSEXP, SEXP XSEXP, SEXP QSEXP, SEXP qSEXP, SEXP nSEXP, SEXP ISEXP, SEXP pallSEXP, SEXP pXSEXP, SEXP pXRSSEXP, SEXP pthreshSEXP, SEXP pshiftSEXP, SEXP prndSEXP, SEXP GHweightsSEXP, SEXP GHnodesSEXP, SEXP scaledSEXP, SEXP coresSEXP, SEXP lambdaSEXP) {
+RcppExport SEXP _MultOrdRS_loglikMO_cumul(SEXP alphaSEXP, SEXP YSEXP, SEXP XSEXP, SEXP QSEXP, SEXP qSEXP, SEXP nSEXP, SEXP ISEXP, SEXP pallSEXP, SEXP pXSEXP, SEXP pXRSSEXP, SEXP pthreshSEXP, SEXP pshiftSEXP, SEXP prndSEXP, SEXP GHweightsSEXP, SEXP GHnodesSEXP, SEXP scaledSEXP, SEXP coresSEXP, SEXP lambdaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -146,7 +146,7 @@ END_RCPP
 }
 // loglikMO_cumul_noRS
 double loglikMO_cumul_noRS(arma::vec alpha, arma::vec Y, arma::mat X, int Q, int q, int n, int I, int pall, int pX, int pthresh, int pshift, int prnd, arma::vec GHweights, arma::vec GHnodes, int scaled, int cores, double lambda);
-RcppExport SEXP _MultOrd_loglikMO_cumul_noRS(SEXP alphaSEXP, SEXP YSEXP, SEXP XSEXP, SEXP QSEXP, SEXP qSEXP, SEXP nSEXP, SEXP ISEXP, SEXP pallSEXP, SEXP pXSEXP, SEXP pthreshSEXP, SEXP pshiftSEXP, SEXP prndSEXP, SEXP GHweightsSEXP, SEXP GHnodesSEXP, SEXP scaledSEXP, SEXP coresSEXP, SEXP lambdaSEXP) {
+RcppExport SEXP _MultOrdRS_loglikMO_cumul_noRS(SEXP alphaSEXP, SEXP YSEXP, SEXP XSEXP, SEXP QSEXP, SEXP qSEXP, SEXP nSEXP, SEXP ISEXP, SEXP pallSEXP, SEXP pXSEXP, SEXP pthreshSEXP, SEXP pshiftSEXP, SEXP prndSEXP, SEXP GHweightsSEXP, SEXP GHnodesSEXP, SEXP scaledSEXP, SEXP coresSEXP, SEXP lambdaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -173,16 +173,16 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_MultOrd_scoreMO", (DL_FUNC) &_MultOrd_scoreMO, 19},
-    {"_MultOrd_loglikMO", (DL_FUNC) &_MultOrd_loglikMO, 19},
-    {"_MultOrd_loglikMO_noRS", (DL_FUNC) &_MultOrd_loglikMO_noRS, 16},
-    {"_MultOrd_scoreMO_noRS", (DL_FUNC) &_MultOrd_scoreMO_noRS, 16},
-    {"_MultOrd_loglikMO_cumul", (DL_FUNC) &_MultOrd_loglikMO_cumul, 18},
-    {"_MultOrd_loglikMO_cumul_noRS", (DL_FUNC) &_MultOrd_loglikMO_cumul_noRS, 17},
+    {"_MultOrdRS_scoreMO", (DL_FUNC) &_MultOrdRS_scoreMO, 19},
+    {"_MultOrdRS_loglikMO", (DL_FUNC) &_MultOrdRS_loglikMO, 19},
+    {"_MultOrdRS_loglikMO_noRS", (DL_FUNC) &_MultOrdRS_loglikMO_noRS, 16},
+    {"_MultOrdRS_scoreMO_noRS", (DL_FUNC) &_MultOrdRS_scoreMO_noRS, 16},
+    {"_MultOrdRS_loglikMO_cumul", (DL_FUNC) &_MultOrdRS_loglikMO_cumul, 18},
+    {"_MultOrdRS_loglikMO_cumul_noRS", (DL_FUNC) &_MultOrdRS_loglikMO_cumul_noRS, 17},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_MultOrd(DllInfo *dll) {
+RcppExport void R_init_MultOrdRS(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }
