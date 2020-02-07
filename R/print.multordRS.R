@@ -17,7 +17,7 @@ print.MultOrdRS <- function(x, ...){
   p <- x$df
   p.fix <- p - p.rnd
   
-  coef.mat <- cbind(x$coef.vec[1:p.fix], x$se.vec)
+  coef.mat <- cbind(x$coef.vec, x$se.vec)
   coef.mat <- cbind(coef.mat, coef.mat[,1]/coef.mat[,2])
   coef.mat <- cbind(coef.mat, 2*pnorm(-abs(coef.mat[, 3])))
   colnames(coef.mat) <- c("Estimate", "Std.Err", "Z value", "Pr(>z)")

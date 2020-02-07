@@ -153,7 +153,7 @@ create.resp.cumul <- function(Y) {
 #'
 #' @param formula Formula containing the (multivariate) ordinal response on the left side and the explanatory variables on the right side.
 #' @param data Data frame containing the ordinal responses as well as the explanatory variables from the \code{formula}.
-#' @param control Control argument for \code{multord()} function. For details see \code{\link{ctrl.multord}}.
+#' @param control Control argument for \code{multord()} function. For details see \code{\link{ctrl.multordRS}}.
 #' @param se Should standard errors be calculated for the regression coefficients? Default is \code{TRUE}.
 #' @param model Specifies, which type of model is used, either the (multivariate) adjacent categories model (\code{model = "acat"}) or the (multivariate) cumulative model (\code{model = "cumulative"}).
 #' @return
@@ -248,7 +248,7 @@ create.resp.cumul <- function(Y) {
 multordRS <-
   function(formula,
            data = NULL,
-           control = ctrl.multord(),
+           control = ctrl.multordRS(),
            se = TRUE,
            model = c("acat", "cumulative")) {
     if (is.null(data)) {
@@ -268,7 +268,7 @@ multordRS <-
       stop("All response variable must have equal numbers of response categories!")
     }
     
-    
+
     ## get basic ordinal model
     model <- match.arg(model)
     
@@ -408,25 +408,38 @@ multordRS <-
     }
     
     coefs <- results.estim$coefs
-    se.vec <- results.estim$se.vec
+    if(se){
+      se.vec <- results.estim$se.vec
+    }else{
+      se.vec <- se.thresh <- se.shift <- se.X <- se.XRS <- NA
+    }
     loglik <- results.estim$loglik
     
     ########################
     ## extract results and prepare return
     
     beta.thresh <- coefs[1:p.thresh]
-    se.thresh <- se.vec[1:p.thresh]
+    thresh.orig <- matrix(beta.thresh, nrow = I)
+    if(se){
+      se.thresh <- se.vec[1:p.thresh]
+    }
     
     beta.shift <- coefs[(p.thresh + 1):(p.thresh + p.shift)]
+    if(se){
     se.shift <- se.vec[(p.thresh + 1):(p.thresh + p.shift)]
+    }
     
     beta.X <- coefs[(p.thresh + p.shift + 1):(p.thresh + p.shift + p.X)]
+    if(se){
     se.X <- se.vec[(p.thresh + p.shift + 1):(p.thresh + p.shift + p.X)]
+    }
     
     beta.XRS <-
       coefs[(p.thresh + p.shift + p.X + 1):(p.thresh + p.shift + p.X + p.XRS)]
+    if(se){
     se.XRS <-
       se.vec[(p.thresh + p.shift + p.X + 1):(p.thresh + p.shift + p.X + p.XRS)]
+    }
     
     beta.rnd <-
       coefs[(p.thresh + p.shift + p.X + p.XRS + 1):(p.thresh + p.shift + p.X +
@@ -438,63 +451,52 @@ multordRS <-
     if (model == "acat") {
       if (p.thresh == q * I) {
         beta.thresh <- matrix(beta.thresh, byrow = TRUE, ncol = q)
+        if(se){
         se.thresh <- matrix(se.thresh, byrow = TRUE, ncol = q)
-        colnames(beta.thresh) <-
+        }
+        colnames(beta.thresh) <-paste0("Thresh.", 1:q)
+        if(se){
           colnames(se.thresh) <- paste0("Thresh.", 1:q)
-        rownames(beta.thresh) <- rownames(se.thresh) <- colnames(Y)
+        }
+        
+        rownames(beta.thresh) <- colnames(Y)
+        
+        if(se){
+          rownames(se.thresh) <- colnames(Y)
+        }
+        
         names.vec <-
           c(names.vec, paste(rep(colnames(Y), each = q), rep(1:q, I), sep = ":"))
       } else{
-        names(beta.thresh) <- names(se.thresh) <- paste0("Thresh.", 1:q)
-        names.vec <- c(names.vec, names(se.thresh))
+        names(beta.thresh) <- paste0("Thresh.", 1:q)
+        if(se){
+          names(se.thresh) <- paste0("Thresh.", 1:q)
+        }
+        if(se){
+          names.vec <- c(names.vec, names(se.thresh))
+        }
       }
     } else{
-      beta.thresh2 <- matrix(beta.thresh[1:I], ncol = q, nrow = I)
-      expvals <- exp(matrix(beta.thresh[-(1:I)], ncol = q - 1))
-      if (q %% 2 == 1) {
-        m <- (q + 1) / 2
-        
-        for (i in 1:q) {
-          if (i < m) {
-            beta.thresh2[, i] <-
-              beta.thresh2[, i] - rowSums(expvals[, i:(m - 1), drop = FALSE])
-          }
-          if (i > m) {
-            beta.thresh2[, i] <-
-              beta.thresh2[, i] + rowSums(expvals[, m:(i - 1), drop = FALSE])
-          }
-        }
-        names.vec <-
-          c(names.vec,
-            paste("Intercept", 1:I, sep = ":"),
-            paste(rep(colnames(Y), each = q - 1), rep((1:q)[-m], I), sep = ":"))
-      } else{
-        m <- (q + 2) / 2
-        for (i in 1:q) {
-          if (i == (m - 1)) {
-            beta.thresh2[, i] <- beta.thresh2[, i] - expvals[, m - 1] / 2
-          }
-          if (i == m) {
-            beta.thresh2[, i] <- beta.thresh2[, i] + expvals[, m - 1] / 2
-          }
-          if (i < (m - 1)) {
-            beta.thresh2[, i] <-
-              beta.thresh2[, i] - expvals[, m - 1] / 2 - rowSums(expvals[, i:(m - 2), drop = FALSE])
-          }
-          if (i > m) {
-            beta.thresh2[, i] <-
-              beta.thresh2[, i] + expvals[, m - 1] / 2 + rowSums(expvals[, m:(i - 1), drop = FALSE])
-          }
-        }
-        names.vec <-
-          c(names.vec,
-            paste("Intercept", 1:I, sep = ":"),
-            paste(rep(colnames(Y), each = q - 1), rep((1:q)[-m], I), sep = ":"))
+      beta.thresh <- matrix(beta.thresh, ncol = q)
+      if(se){
+        se.thresh <- matrix(se.thresh, ncol = q)
       }
-      beta.thresh <- beta.thresh2
-      colnames(beta.thresh) <-  paste0("Thresh.", 1:q)
-      rownames(beta.thresh) <-  colnames(Y)
+      colnames(beta.thresh) <- c("gamma", paste0("delta", 2:q))
+      if(se){
+        colnames(se.thresh) <- c("gamma", paste0("delta", 2:q))
+      }
+      
+      rownames(beta.thresh) <- colnames(Y)
+      
+      if(se){
+        rownames(se.thresh) <- colnames(Y)
+      }
+      
+      names.vec <-
+        c(names.vec, paste(rep(colnames(Y), q), rep(c("gamma", paste0("delta", 2:q)), each = I), sep = ":"))
     }
+    
+    
     
     if (p.shift > 0) {
       names(beta.shift) <- names(se.shift) <- head(colnames(Y), I - 1)
@@ -504,21 +506,26 @@ multordRS <-
     }
     
     if (p.X > 0) {
-      names(beta.X) <- names(se.X) <- colnames(X)
-      names.vec <- c(names.vec, names(se.X))
+      names(beta.X) <- colnames(X)
+      names.vec <- c(names.vec, names(beta.X))
+      if(se){
+        names(se.X) <- colnames(X)
+      }
     } else{
       beta.X <- se.X <- NA
     }
     
     if (p.XRS > 0) {
-      names(beta.XRS) <- names(se.XRS) <- colnames(X)
-      names.vec <- c(names.vec, names(se.XRS))
+      names(beta.XRS) <- colnames(X)
+      names.vec <- c(names.vec, names(beta.XRS))
+      if(se){
+        names(se.XRS) <- colnames(X)
+      }
     } else{
       beta.XRS <- se.XRS <- NA
     }
     
-    
-    names(se.vec) <- names.vec
+
     if (p.rnd == 3) {
       Sigma <-
         matrix(c(
@@ -537,7 +544,13 @@ multordRS <-
       names(Sigma) <- "Intercept"
       names.vec <- c(names.vec,  "Intercept")
     }
+    
+    
     names(coefs) <- names.vec
+    
+    if(se){
+      names(se.vec) <- names.vec
+    }
     
     fun.call <- match.call()
     design.values <- list(
@@ -575,7 +588,8 @@ multordRS <-
         loglik = loglik,
         call = fun.call,
         df = length(coefs),
-        control = control
+        control = control,
+        thresh.orig = thresh.orig
       )
     
     class(ret.list) <- "MultOrdRS"

@@ -4,9 +4,15 @@
 \alias{ctrl.multordRS}
 \title{Control Function for multordRS}
 \usage{
-ctrl.multordRS(RS = TRUE, thresholds.acat = c("full", "shift",
-  "minimal"), XforRS = TRUE, opt.method = c("L-BFGS-B", "nlminb"),
-  Q = 10, cores = 5, lambda = 0.01)
+ctrl.multordRS(
+  RS = TRUE,
+  thresholds.acat = c("full", "shift", "minimal"),
+  XforRS = TRUE,
+  opt.method = c("L-BFGS-B", "nlminb"),
+  Q = 10,
+  cores = 5,
+  lambda = 0.01
+)
 }
 \arguments{
 \item{RS}{Logical value indicating whether response style should be modelled.}

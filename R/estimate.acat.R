@@ -136,7 +136,7 @@ if(se){
     
   }
   
-  hess.inv <- solve(hess)[1:p.fix,1:p.fix]
+  hess.inv <- solve(hess)
   se.vec <- sqrt(diag(hess.inv))
 }else{
   se.vec <- NULL

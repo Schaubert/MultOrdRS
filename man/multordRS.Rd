@@ -4,15 +4,20 @@
 \alias{multordRS}
 \title{Model Multivariate Ordinal Responses Including Response Styles}
 \usage{
-multordRS(formula, data = NULL, control = ctrl.multord(), se = TRUE,
-  model = c("acat", "cumulative"))
+multordRS(
+  formula,
+  data = NULL,
+  control = ctrl.multordRS(),
+  se = TRUE,
+  model = c("acat", "cumulative")
+)
 }
 \arguments{
 \item{formula}{Formula containing the (multivariate) ordinal response on the left side and the explanatory variables on the right side.}
 
 \item{data}{Data frame containing the ordinal responses as well as the explanatory variables from the \code{formula}.}
 
-\item{control}{Control argument for \code{multord()} function. For details see \code{\link{ctrl.multord}}.}
+\item{control}{Control argument for \code{multord()} function. For details see \code{\link{ctrl.multordRS}}.}
 
 \item{se}{Should standard errors be calculated for the regression coefficients? Default is \code{TRUE}.}
 

@@ -11,4 +11,4 @@ Imports:
     Rcpp (>= 0.12.4), statmod
 LinkingTo: Rcpp, RcppArmadillo
 SystemRequirements: C++11
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2

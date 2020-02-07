@@ -702,7 +702,7 @@ double loglikMO_cumul(arma::vec alpha,
   
   // initialize design for all thresholds
   mat threshs = zeros(q,I);
-  mat expvals = reshape(exp(alpha(span(I,pthresh-1))),q-1,I);
+  mat expvals = trans(reshape(exp(alpha(span(I,pthresh-1))),I,q-1));
   int m;
   
   // falls Rest Null ist k ungerade
@@ -839,7 +839,7 @@ double loglikMO_cumul_noRS(arma::vec alpha,
   
   // initialize design for all thresholds
   mat threshs = zeros(q,I);
-  mat expvals = reshape(exp(alpha(span(I,pthresh-1))),q-1,I);
+  mat expvals = trans(reshape(exp(alpha(span(I,pthresh-1))),I,q-1));
   int m;
   
   // falls Rest Null ist k ungerade
@@ -875,7 +875,7 @@ double loglikMO_cumul_noRS(arma::vec alpha,
       
     }
   }
-  
+
   // initialize number of different threads
 #ifdef _OPENMP
   omp_set_num_threads(cores);
