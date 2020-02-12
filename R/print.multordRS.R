@@ -1,5 +1,5 @@
 print.MultOrdRS <- function(x, ...){
-  cat("Output of multord estimation:","\n")
+  cat("Output of multordRS estimation:","\n")
   
   cat("---","\n")
   

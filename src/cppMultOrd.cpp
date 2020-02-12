@@ -50,6 +50,13 @@ vec respFun_cumul(vec eta){
   return pi_vec;
 }
 
+vec respFun_cumul2(vec eta){
+  eta(find(eta>20)) = ones(size(find(eta>20)))*20;
+  eta(find(eta<-20)) = -ones(size(find(eta<-20)))*20;
+  vec pi_vec = exp(eta)/(1+exp(eta));
+  return pi_vec;
+}
+
 // create inverse sigma for acat
 mat createSigmaInv_acat(vec mu){
   mat Sigma = diagmat(mu) - mu * trans(mu);
@@ -648,7 +655,162 @@ arma::vec scoreMO_noRS(arma::vec alpha,
   return s;
 }
 
+double loglikMO_cumul2(arma::vec alpha,
+                       arma::vec Y,
+                       arma::mat X,
+                       int Q,
+                       int q,
+                       int n,
+                       int I,
+                       int pall,
+                       int pX,
+                       int pXRS,
+                       int pthresh,
+                       int pshift,
+                       int prnd,
+                       arma::mat GHweights,
+                       arma::vec GHnodes,
+                       int scaled,
+                       int cores,
+                       double lambda) { 
+  
+  // initialize loglikelihood       
+  
+  vec f = zeros(n);
+  
+  
+  // current value of L2 penalty
+  double P2 = accu(alpha%alpha)*lambda;
+  
+  // create sigma matrix from current parameters
+  double co_var = alpha(pall-2)*sqrt(alpha(pall-1))*sqrt(alpha(pall-3));
+  mat sigma = zeros(2,2);        
+  sigma(0,0) = alpha(pall-3);
+  sigma(1,0) = co_var;
+  sigma(0,1) = co_var;
+  sigma(1,1) = alpha(pall-1);
+  
+  
+  mat sigma12 = chol(sigma);
+  
+  vec etaTheta = zeros(n);
+  vec etaGamma = zeros(n);
+  if(pX>0){
+    etaTheta = X * alpha(span(pthresh+pshift,pthresh+pshift+pX-1));
+  }
+  if(pXRS>0){
+    etaGamma = X * alpha(span(pthresh+pshift+pX,pthresh+pshift+pX+pXRS-1));
+  }
+  
+  vec intercepts = alpha(span(0,I-1));
+  
+  // initialize design for all thresholds
+  mat threshs = zeros(q,I);
+  mat expvals = trans(reshape(exp(alpha(span(I,pthresh-1))),I,q-1));
+  int m;
+  
+  // falls Rest Null ist k ungerade
+  if(q%2==0){
+    m = (q+2)/2;
+    
+    for(int i=0; i < q; i++){
+      
+      if(i==(m-2)){
+        threshs(i,span::all) = -expvals(m-2,span::all)/2;
+      }
+      if(i==(m-1)){
+        threshs(i,span::all) = expvals(m-2,span::all)/2;
+      }
+      if(i<(m-2)){
+        threshs(i,span::all) =  -expvals(m-2,span::all)/2 - sum(expvals(span(i, m-3),span::all), 0);
+      }
+      
+      if(i>(m-1)){
+        threshs(i,span::all) = expvals(m-2,span::all)/2 + sum(expvals(span(m-1,i-1),span::all), 0);
+      }
+    }
+  }else{
+    m = (q+1)/2;
+    for(int i=0; i < q; i++){
+      // threshs(i,span::all) = intercepts(span::all);
+      if(i<(m-1)){
+        threshs(i,span::all) = -sum(expvals(span(i, m-2),span::all), 0);
+      }
+      if(i>(m-1)){
+        threshs(i,span::all) =  sum(expvals(span(m-1,i-1),span::all), 0);
+      }
+      
+    }
+  }
+  
+  // initialize number of different threads
+#ifdef _OPENMP
+  omp_set_num_threads(cores);
+#endif
+  
+  // loop through all persons
+  // #pragma omp parallel for reduction(-:f)
+  
+  int i; int pos; vec yi; mat prods_i; int j; int jj; vec rnd_act; int k; vec yi_k; 
+  vec eta_k; vec mu_k; vec help_pow;
+  
+  
+#ifdef _OPENMP
+#pragma omp parallel for private(i, pos, yi, prods_i, j, jj, rnd_act, k,  yi_k, eta_k, mu_k, help_pow) shared(f)
+#endif
+  for(i=0; i<n ;i++){
+    pos = i*q*I;
+    // get response of person i
+    yi = Y(span(pos,pos+q*I-1));
+    
+    prods_i = ones(Q,Q);
+    // loop through all knots, for both random effects
+    for(j=0; j<Q ;j++){ 
+      for(jj=0; jj<Q ;jj++){ 
+        // initialize current random effects or knots
+        rnd_act = zeros(2);
+        rnd_act(0) = GHnodes(j);
+        rnd_act(1) = GHnodes(jj);
+        
+        rnd_act = sigma12*rnd_act;
+        
+        rnd_act(1) = exp(rnd_act(1) + etaGamma(i)); 
+        rnd_act(0) = rnd_act(0) + etaTheta(i); 
+        
+        // loop through all items  
+        for(k=0; k<I ;k++){  
+          // response of person i for current item k
+          yi_k = yi(span(k*q,q+k*q-1));
+          
+          yi_k = diff(join_cols(join_cols(zeros<vec>(1),yi_k),ones<vec>(1)));
+          
+          // get eta and mu of person i for current item k
+          
+          eta_k = intercepts(k) + threshs(span::all,k)*rnd_act(1) + rnd_act(0);
+          
+          
+          mu_k = respFun_cumul2(eta_k);
+          
+          mu_k = diff(join_cols(join_cols(zeros<vec>(1),mu_k),ones<vec>(1)));
+          mu_k = (mu_k-0.5)*0.9999999+0.5;
+          
+          // create prob for current item, update prob matrix for respective knots
+          help_pow = mu_k % yi_k - (yi_k-1);
+          
+          prods_i(j,jj) = prods_i(j,jj)*prod(help_pow);
+        }
+        
+      }
+    }
+    
+    f(i)  = -log(accu(prods_i%GHweights));
+    
+    // accumulate all likelihood contributions, weights by respective weights and probs of knots
+  }
+  double fx = sum(f) + P2;
 
+  return (fx);
+}
 
 // [[Rcpp::export]]
 double loglikMO_cumul(arma::vec alpha,
@@ -783,24 +945,53 @@ vec eta_k; vec mu_k; vec help_pow;
           // get eta and mu of person i for current item k
 
           eta_k = intercepts(k) + threshs(span::all,k)*rnd_act(1) + rnd_act(0);
+          
 
           mu_k = respFun_cumul(eta_k);
+          
           mu_k = diff(join_cols(join_cols(zeros<vec>(1),mu_k),ones<vec>(1)));
+          mu_k = (mu_k-0.5)*0.9999999+0.5;
+
           // create prob for current item, update prob matrix for respective knots
           help_pow = mu_k % yi_k - (yi_k-1);
           
           prods_i(j,jj) = prods_i(j,jj)*prod(help_pow);
         }
+        
       }
     }
+    
     f(i)  = -log(accu(prods_i%GHweights));
-
+    
     // accumulate all likelihood contributions, weights by respective weights and probs of knots
   }
   double fx = sum(f) + P2;
-  
+
+  if(std::isnan(fx)){
+    fx = loglikMO_cumul2(alpha,
+                         Y,
+                         X,
+                         Q,
+                         q,
+                         n,
+                         I,
+                         pall,
+                         pX,
+                         pXRS,
+                         pthresh,
+                         pshift,
+                         prnd,
+                         GHweights,
+                         GHnodes,
+                         scaled,
+                         cores,
+                         lambda);
+  }
+      
   return (fx);
 }
+
+
 
 
 // [[Rcpp::export]]
