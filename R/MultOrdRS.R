@@ -585,7 +585,7 @@ multordRS <-
         coef.vec = coefs,
         se.vec = se.vec,
         design.values = design.values,
-        loglik = loglik,
+        loglik = -loglik,
         call = fun.call,
         df = length(coefs),
         control = control,
