@@ -3,8 +3,7 @@
 
 #' Control Function for multordRS
 #'
-#' Control function for multordRS, a model for multivariate ordinal responses
-#' response styles
+#' Control function for multordRS, a model for multivariate ordinal responses including response styles
 #'
 #'
 #' @param RS Logical value indicating whether response style should be modelled.
@@ -26,6 +25,8 @@
 #' \url{https://www.researchgate.net/profile/Gunther_Schauberger2}
 #' @seealso \code{\link{multordRS}} \code{\link{MultOrdRS-package}} \code{\link{plot.MultOrdRS}}
 #' @keywords multivariate ordinal response style adjacent categories cumulative
+#' @references Schauberger, Gunther and Tutz, Gerhard (2020): Multivariate Ordinal Random Effects Models Including Subject and Group Specific Response Style Effects, 
+#' \emph{Statistical Modelling}, to appear
 #' @examples
 #' \dontrun{
 #' data(tenseness)
@@ -91,6 +92,44 @@
 #' m.tense3.cumul
 #' 
 #' plot(m.tense3.cumul)
+#' 
+#' ###########################################################################
+#' ## Examples from Schauberger and Tutz (2020) on data from the German Longitudinal Election Study (GLES) 2017
+#' ###########################################################################
+#' 
+#' ####
+#' ## Source: German Longitudinal Election Study 2017 (Rossteutscher et al. 2017, https://doi.org/10.4232/1.12927)
+#' ####
+#' 
+#' ## load GLES data
+#' data(GLES17)
+#' 
+#' ## scale data
+#' GLES17[,7:11] <- scale(GLES17[,7:11])
+#' 
+#' ## define formula
+#' f.GLES <- as.formula(cbind(RefugeeCrisis, ClimateChange, Terrorism, Globalization, Turkey, NuclearEnergy) ~ 
+#'                        Age + Gender + Unemployment + EastWest + Abitur)
+#' 
+#' ## fit adjacent categories model without and with response style parameters
+#' m.GLES0 <- multordRS(f.GLES, data = GLES17, control =  ctrl.multordRS(RS = FALSE, cores = 6))
+#' m.GLES <- multordRS(f.GLES, data = GLES17, control =  ctrl.multordRS(cores = 6))
+#' 
+#' m.GLES0
+#' m.GLES
+#' 
+#' plot(m.GLES, main = "Adjacent categories model")
+#' 
+#' 
+#' ## fit cumulative model without and with response style parameters (takes pretty long!!!)
+#' m.GLES20 <- multordRS(f.GLES, data = GLES17,  model="cumul", control = ctrl.multordRS(opt.method = "nlminb", cores = 6, RS = FALSE))
+#' m.GLES2 <- multordRS(f.GLES, data = GLES17,  model="cumul", control = ctrl.multordRS(opt.method = "nlminb", cores = 6))
+#' 
+#' m.GLES20
+#' m.GLES2
+#' 
+#' plot(m.GLES2, main = "Cumulative model")
+#' 
 #'}
 ctrl.multordRS <-
   function(RS = TRUE,
@@ -179,6 +218,8 @@ create.resp.cumul <- function(Y) {
 #' \url{https://www.researchgate.net/profile/Gunther_Schauberger2}
 #' @seealso \code{\link{ctrl.multordRS}} \code{\link{MultOrdRS-package}} \code{\link{plot.MultOrdRS}}
 #' @keywords multivariate ordinal response style adjacent categories
+#' @references Schauberger, Gunther and Tutz, Gerhard (2020): Multivariate Ordinal Random Effects Models Including Subject and Group Specific Response Style Effects, 
+#' \emph{Statistical Modelling}, to appear
 #' @examples
 #' \dontrun{
 #' data(tenseness)
@@ -244,6 +285,44 @@ create.resp.cumul <- function(Y) {
 #' m.tense3.cumul
 #' 
 #' plot(m.tense3.cumul)
+#' 
+#' ###########################################################################
+#' ## Examples from Schauberger and Tutz (2020) on data from the German Longitudinal Election Study (GLES) 2017
+#' ###########################################################################
+#' 
+#' ####
+#' ## Source: German Longitudinal Election Study 2017 (Rossteutscher et al. 2017, https://doi.org/10.4232/1.12927)
+#' ####
+#' 
+#' ## load GLES data
+#' data(GLES17)
+#' 
+#' ## scale data
+#' GLES17[,7:11] <- scale(GLES17[,7:11])
+#' 
+#' ## define formula
+#' f.GLES <- as.formula(cbind(RefugeeCrisis, ClimateChange, Terrorism, Globalization, Turkey, NuclearEnergy) ~ 
+#'                        Age + Gender + Unemployment + EastWest + Abitur)
+#' 
+#' ## fit adjacent categories model without and with response style parameters
+#' m.GLES0 <- multordRS(f.GLES, data = GLES17, control =  ctrl.multordRS(RS = FALSE, cores = 6))
+#' m.GLES <- multordRS(f.GLES, data = GLES17, control =  ctrl.multordRS(cores = 6))
+#' 
+#' m.GLES0
+#' m.GLES
+#' 
+#' plot(m.GLES, main = "Adjacent categories model")
+#' 
+#' 
+#' ## fit cumulative model without and with response style parameters (takes pretty long!!!)
+#' m.GLES20 <- multordRS(f.GLES, data = GLES17,  model="cumul", control = ctrl.multordRS(opt.method = "nlminb", cores = 6, RS = FALSE))
+#' m.GLES2 <- multordRS(f.GLES, data = GLES17,  model="cumul", control = ctrl.multordRS(opt.method = "nlminb", cores = 6))
+#' 
+#' m.GLES20
+#' m.GLES2
+#' 
+#' plot(m.GLES2, main = "Cumulative model")
+#' 
 #'}
 multordRS <-
   function(formula,
