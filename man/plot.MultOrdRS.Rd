@@ -11,10 +11,10 @@
 
 \item{alpha}{Specifies the confidence level 1-alpha of the confidence interval.}
 
-\item{...}{Further plot arguments.}
-
-\item{CI.factor}{Argument that helps to control the appearance (the width) of the stars that represent the confidence intervals of both 
+\item{CIfactor}{Argument that helps to control the appearance (the width) of the stars that represent the confidence intervals of both 
 parameters (location and response style) corresponding to one covariate.}
+
+\item{...}{Further plot arguments.}
 }
 \description{
 Plot function for a \code{MultOrdRS} object. Plots show coefficients of the explanatory variables, both with repect to location and response styles.

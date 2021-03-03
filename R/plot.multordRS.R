@@ -6,7 +6,7 @@
 #' @usage \method{plot}{MultOrdRS}(x, alpha = 0.05, CIfactor = 0.9, \dots)
 #' @param x \code{MultOrdRS} object
 #' @param alpha Specifies the confidence level 1-alpha of the confidence interval. 
-#' @param CI.factor Argument that helps to control the appearance (the width) of the stars that represent the confidence intervals of both 
+#' @param CIfactor Argument that helps to control the appearance (the width) of the stars that represent the confidence intervals of both 
 #' parameters (location and response style) corresponding to one covariate.
 #' @param ... Further plot arguments.
 #' @author Gunther Schauberger\cr \email{gunther.schauberger@@tum.de}\cr
