@@ -10,7 +10,7 @@
 #' parameters (location and response style) corresponding to one covariate.
 #' @param ... Further plot arguments.
 #' @author Gunther Schauberger\cr \email{gunther.schauberger@@tum.de}\cr
-#' \url{https://www.researchgate.net/profile/Gunther_Schauberger2}
+#' \url{https://orcid.org/0000-0002-0392-1580}
 #' @seealso \code{\link{multordRS}}, \code{\link{ctrl.multordRS}}
 #' @references Schauberger, Gunther and Tutz, Gerhard (2020): Multivariate Ordinal Random Effects Models Including Subject and Group Specific Response Style Effects, 
 #' \emph{Statistical Modelling}, to appear
@@ -49,7 +49,8 @@
 #' m.tense2 <- multordRS(f.tense1, data = tenseness, control = ctrl.multordRS(XforRS = FALSE))
 #' m.tense2
 #' 
-#' ## Multivariate adjacent categories model, with response style as a random effect, with explanatory variables for location AND response style
+#' ## Multivariate adjacent categories model, with response style as a random effect, with 
+#' ## explanatory variables for location AND response style
 #' m.tense3 <- multordRS(f.tense1, data = tenseness)
 #' m.tense3
 #' 
@@ -74,7 +75,8 @@
 #' m.tense2.cumul <- multordRS(f.tense1, data = tenseness, control = ctrl.multordRS(XforRS = FALSE), model = "cumulative")
 #' m.tense2.cumul
 #' 
-#' ## Multivariate cumulative model, with response style as a random effect, with explanatory variables for location AND response style
+#' ## Multivariate cumulative model, with response style as a random effect, with 
+#' ## explanatory variables for location AND response style
 #' m.tense3.cumul <- multordRS(f.tense1, data = tenseness, model = "cumulative")
 #' m.tense3.cumul
 #' 
@@ -109,8 +111,11 @@
 #' 
 #' 
 #' ## fit cumulative model without and with response style parameters (takes pretty long!!!)
-#' m.GLES20 <- multordRS(f.GLES, data = GLES17,  model="cumul", control = ctrl.multordRS(opt.method = "nlminb", cores = 6, RS = FALSE))
-#' m.GLES2 <- multordRS(f.GLES, data = GLES17,  model="cumul", control = ctrl.multordRS(opt.method = "nlminb", cores = 6))
+#' m.GLES20 <- multordRS(f.GLES, data = GLES17,  model="cumul", 
+#' control = ctrl.multordRS(opt.method = "nlminb", cores = 6, RS = FALSE))
+#' 
+#' m.GLES2 <- multordRS(f.GLES, data = GLES17,  model="cumul", 
+#' control = ctrl.multordRS(opt.method = "nlminb", cores = 6))
 #' 
 #' m.GLES20
 #' m.GLES2

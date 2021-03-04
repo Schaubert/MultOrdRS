@@ -9,7 +9,7 @@
 #' @name MultOrdRS-package
 #' @docType package
 #' @author Gunther Schauberger\cr \email{gunther.schauberger@@tum.de}\cr
-#' \url{https://www.researchgate.net/profile/Gunther_Schauberger2}
+#' \url{https://orcid.org/0000-0002-0392-1580}
 #' @seealso \code{\link{multordRS}}  \code{\link{ctrl.multordRS}}  \code{\link{plot.MultOrdRS}}
 #' @keywords multivariate ordinal response style adjacent categories cumulative 
 #' @references Schauberger, Gunther and Tutz, Gerhard (2020): Multivariate Ordinal Random Effects Models Including Subject and Group Specific Response Style Effects, 
@@ -49,7 +49,8 @@
 #' m.tense2 <- multordRS(f.tense1, data = tenseness, control = ctrl.multordRS(XforRS = FALSE))
 #' m.tense2
 #' 
-#' ## Multivariate adjacent categories model, with response style as a random effect, with explanatory variables for location AND response style
+#' ## Multivariate adjacent categories model, with response style as a random effect, with 
+#' ## explanatory variables for location AND response style
 #' m.tense3 <- multordRS(f.tense1, data = tenseness)
 #' m.tense3
 #' 
@@ -74,7 +75,8 @@
 #' m.tense2.cumul <- multordRS(f.tense1, data = tenseness, control = ctrl.multordRS(XforRS = FALSE), model = "cumulative")
 #' m.tense2.cumul
 #' 
-#' ## Multivariate cumulative model, with response style as a random effect, with explanatory variables for location AND response style
+#' ## Multivariate cumulative model, with response style as a random effect, with 
+#' ## explanatory variables for location AND response style
 #' m.tense3.cumul <- multordRS(f.tense1, data = tenseness, model = "cumulative")
 #' m.tense3.cumul
 #' 
@@ -109,8 +111,11 @@
 #' 
 #' 
 #' ## fit cumulative model without and with response style parameters (takes pretty long!!!)
-#' m.GLES20 <- multordRS(f.GLES, data = GLES17,  model="cumul", control = ctrl.multordRS(opt.method = "nlminb", cores = 6, RS = FALSE))
-#' m.GLES2 <- multordRS(f.GLES, data = GLES17,  model="cumul", control = ctrl.multordRS(opt.method = "nlminb", cores = 6))
+#' m.GLES20 <- multordRS(f.GLES, data = GLES17,  model="cumul", 
+#' control = ctrl.multordRS(opt.method = "nlminb", cores = 6, RS = FALSE))
+#' 
+#' m.GLES2 <- multordRS(f.GLES, data = GLES17,  model="cumul", 
+#' control = ctrl.multordRS(opt.method = "nlminb", cores = 6))
 #' 
 #' m.GLES20
 #' m.GLES2
@@ -133,14 +138,14 @@ NULL
 #' All items refer to the scale \emph{Tenseness} and are measured on a 5-point Likert scale where low numbers 
 #' correspond to low frequencies or low intensitites of the respective complaint and vice versa. 
 #' \describe{ 
-#' \item{Clammy hands}{Do you have clammy hands?}
-#' \item{Sweat attacks}{Do you have sudden attacks of sweating?}
+#' \item{Clammy_hands}{Do you have clammy hands?}
+#' \item{Sweat_attacks}{Do you have sudden attacks of sweating?}
 #' \item{Clumsiness}{Do you notice that you behave clumsy?}
-#' \item{Wavering hands}{Are your hands wavering frequently, e.g. when lightning a cigarette or when holding a cup?}
-#' \item{Restless hands}{Do you notice that your hands are restless?}
-#' \item{Restless feet}{Do you notice that your feet are restless?}
-#' \item{Twitching eyes}{Do you notice unvoluntary twitching of your eyes?}
-#' \item{Twitching mouth}{Do you notice unvoluntary twitching of your mouth?}
+#' \item{Wavering_hands}{Are your hands wavering frequently, e.g. when lightning a cigarette or when holding a cup?}
+#' \item{Restless_hands}{Do you notice that your hands are restless?}
+#' \item{Restless_feet}{Do you notice that your feet are restless?}
+#' \item{Twitching_eyes}{Do you notice unvoluntary twitching of your eyes?}
+#' \item{Twitching_mouth}{Do you notice unvoluntary twitching of your mouth?}
 #' \item{Gender}{Gender of the participant}
 #' \item{Household}{Does participant live alone in a houshold or together with others?}
 #' \item{WestEast}{is the participant from East Germany (former GDR) or West Germany?}
@@ -188,7 +193,8 @@ NULL
 #' m.tense2 <- multordRS(f.tense1, data = tenseness, control = ctrl.multordRS(XforRS = FALSE))
 #' m.tense2
 #' 
-#' ## Multivariate adjacent categories model, with response style as a random effect, with explanatory variables for location AND response style
+#' ## Multivariate adjacent categories model, with response style as a random effect, with 
+#' ## explanatory variables for location AND response style
 #' m.tense3 <- multordRS(f.tense1, data = tenseness)
 #' m.tense3
 #' 
@@ -213,7 +219,8 @@ NULL
 #' m.tense2.cumul <- multordRS(f.tense1, data = tenseness, control = ctrl.multordRS(XforRS = FALSE), model = "cumulative")
 #' m.tense2.cumul
 #' 
-#' ## Multivariate cumulative model, with response style as a random effect, with explanatory variables for location AND response style
+#' ## Multivariate cumulative model, with response style as a random effect, with explanatory variables 
+#' ## for location AND response style
 #' m.tense3.cumul <- multordRS(f.tense1, data = tenseness, model = "cumulative")
 #' m.tense3.cumul
 #' 
@@ -240,7 +247,7 @@ NULL
 #' \item{Terrorism}{How afraid are you due to the international terrorism? (Likert scale from 1 (not afraid at all) to 7 (very afraid))}
 #' \item{Globalization}{How afraid are you due to the globalization? (Likert scale from 1 (not afraid at all) to 7 (very afraid))}
 #' \item{Turkey}{How afraid are you due to the political developments in Turkey? (Likert scale from 1 (not afraid at all) to 7 (very afraid))}
-#' \item{NuclearEnegery}{How afraid are you due to the use of nuclear energy? (Likert scale from 1 (not afraid at all) to 7 (very afraid))}
+#' \item{NuclearEnergy}{How afraid are you due to the use of nuclear energy? (Likert scale from 1 (not afraid at all) to 7 (very afraid))}
 #' \item{Age}{Age in years} 
 #' \item{Gender}{0: male, 1: female}
 #' \item{EastWest}{0: West Germany, 1: East Germany}
@@ -254,7 +261,7 @@ NULL
 #' \emph{Statistical Modelling}, to appear
 #' @source
 #' \url{https://gles-en.eu/} and 
-#' \url{https://doi.org/10.4232/1.12927}
+#' \doi{10.4232/1.12927}
 #' @keywords datasets
 #' @examples
 #' \dontrun{
@@ -287,8 +294,11 @@ NULL
 #' 
 #' 
 #' ## fit cumulative model without and with response style parameters (takes pretty long!!!)
-#' m.GLES20 <- multordRS(f.GLES, data = GLES17,  model="cumul", control = ctrl.multordRS(opt.method = "nlminb", cores = 6, RS = FALSE))
-#' m.GLES2 <- multordRS(f.GLES, data = GLES17,  model="cumul", control = ctrl.multordRS(opt.method = "nlminb", cores = 6))
+#' m.GLES20 <- multordRS(f.GLES, data = GLES17,  model="cumul", 
+#' control = ctrl.multordRS(opt.method = "nlminb", cores = 6, RS = FALSE))
+#' 
+#' m.GLES2 <- multordRS(f.GLES, data = GLES17,  model="cumul", 
+#' control = ctrl.multordRS(opt.method = "nlminb", cores = 6))
 #' 
 #' m.GLES20
 #' m.GLES2

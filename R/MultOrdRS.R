@@ -22,7 +22,7 @@
 #' @param lambda Tuning parameter for internal ridge penalty. It is supposed to be set to a small value
 #' to stabilize estimates.
 #' @author Gunther Schauberger\cr \email{gunther.schauberger@@tum.de}\cr
-#' \url{https://www.researchgate.net/profile/Gunther_Schauberger2}
+#' \url{https://orcid.org/0000-0002-0392-1580}
 #' @seealso \code{\link{multordRS}} \code{\link{MultOrdRS-package}} \code{\link{plot.MultOrdRS}}
 #' @keywords multivariate ordinal response style adjacent categories cumulative
 #' @references Schauberger, Gunther and Tutz, Gerhard (2020): Multivariate Ordinal Random Effects Models Including Subject and Group Specific Response Style Effects, 
@@ -62,7 +62,8 @@
 #' m.tense2 <- multordRS(f.tense1, data = tenseness, control = ctrl.multordRS(XforRS = FALSE))
 #' m.tense2
 #' 
-#' ## Multivariate adjacent categories model, with response style as a random effect, with explanatory variables for location AND response style
+#' ## Multivariate adjacent categories model, with response style as a random effect, with 
+#' ## explanatory variables for location AND response style
 #' m.tense3 <- multordRS(f.tense1, data = tenseness)
 #' m.tense3
 #' 
@@ -87,7 +88,8 @@
 #' m.tense2.cumul <- multordRS(f.tense1, data = tenseness, control = ctrl.multordRS(XforRS = FALSE), model = "cumulative")
 #' m.tense2.cumul
 #' 
-#' ## Multivariate cumulative model, with response style as a random effect, with explanatory variables for location AND response style
+#' ## Multivariate cumulative model, with response style as a random effect, with 
+#' ## explanatory variables for location AND response style
 #' m.tense3.cumul <- multordRS(f.tense1, data = tenseness, model = "cumulative")
 #' m.tense3.cumul
 #' 
@@ -122,8 +124,11 @@
 #' 
 #' 
 #' ## fit cumulative model without and with response style parameters (takes pretty long!!!)
-#' m.GLES20 <- multordRS(f.GLES, data = GLES17,  model="cumul", control = ctrl.multordRS(opt.method = "nlminb", cores = 6, RS = FALSE))
-#' m.GLES2 <- multordRS(f.GLES, data = GLES17,  model="cumul", control = ctrl.multordRS(opt.method = "nlminb", cores = 6))
+#' m.GLES20 <- multordRS(f.GLES, data = GLES17,  model="cumul", 
+#' control = ctrl.multordRS(opt.method = "nlminb", cores = 6, RS = FALSE))
+#' 
+#' m.GLES2 <- multordRS(f.GLES, data = GLES17,  model="cumul", 
+#' control = ctrl.multordRS(opt.method = "nlminb", cores = 6))
 #' 
 #' m.GLES20
 #' m.GLES2
@@ -215,7 +220,7 @@ create.resp.cumul <- function(Y) {
 #' \item{df}{Degrees of freedom}
 #' \item{control}{Control argument from function call}
 #' @author Gunther Schauberger\cr \email{gunther.schauberger@@tum.de}\cr
-#' \url{https://www.researchgate.net/profile/Gunther_Schauberger2}
+#' \url{https://orcid.org/0000-0002-0392-1580}
 #' @seealso \code{\link{ctrl.multordRS}} \code{\link{MultOrdRS-package}} \code{\link{plot.MultOrdRS}}
 #' @keywords multivariate ordinal response style adjacent categories
 #' @references Schauberger, Gunther and Tutz, Gerhard (2020): Multivariate Ordinal Random Effects Models Including Subject and Group Specific Response Style Effects, 
@@ -255,7 +260,8 @@ create.resp.cumul <- function(Y) {
 #' m.tense2 <- multordRS(f.tense1, data = tenseness, control = ctrl.multordRS(XforRS = FALSE))
 #' m.tense2
 #' 
-#' ## Multivariate adjacent categories model, with response style as a random effect, with explanatory variables for location AND response style
+#' ## Multivariate adjacent categories model, with response style as a random effect, with 
+#' ## explanatory variables for location AND response style
 #' m.tense3 <- multordRS(f.tense1, data = tenseness)
 #' m.tense3
 #' 
@@ -280,7 +286,8 @@ create.resp.cumul <- function(Y) {
 #' m.tense2.cumul <- multordRS(f.tense1, data = tenseness, control = ctrl.multordRS(XforRS = FALSE), model = "cumulative")
 #' m.tense2.cumul
 #' 
-#' ## Multivariate cumulative model, with response style as a random effect, with explanatory variables for location AND response style
+#' ## Multivariate cumulative model, with response style as a random effect, with 
+#' ## explanatory variables for location AND response style
 #' m.tense3.cumul <- multordRS(f.tense1, data = tenseness, model = "cumulative")
 #' m.tense3.cumul
 #' 
@@ -315,8 +322,11 @@ create.resp.cumul <- function(Y) {
 #' 
 #' 
 #' ## fit cumulative model without and with response style parameters (takes pretty long!!!)
-#' m.GLES20 <- multordRS(f.GLES, data = GLES17,  model="cumul", control = ctrl.multordRS(opt.method = "nlminb", cores = 6, RS = FALSE))
-#' m.GLES2 <- multordRS(f.GLES, data = GLES17,  model="cumul", control = ctrl.multordRS(opt.method = "nlminb", cores = 6))
+#' m.GLES20 <- multordRS(f.GLES, data = GLES17,  model="cumul", 
+#' control = ctrl.multordRS(opt.method = "nlminb", cores = 6, RS = FALSE))
+#' 
+#' m.GLES2 <- multordRS(f.GLES, data = GLES17,  model="cumul", 
+#' control = ctrl.multordRS(opt.method = "nlminb", cores = 6))
 #' 
 #' m.GLES20
 #' m.GLES2
