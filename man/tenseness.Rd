@@ -9,14 +9,14 @@ A data frame containing data from the Freiburg Complaint Checklist with 1847 obs
 All items refer to the scale \emph{Tenseness} and are measured on a 5-point Likert scale where low numbers 
 correspond to low frequencies or low intensitites of the respective complaint and vice versa. 
 \describe{ 
-\item{Clammy hands}{Do you have clammy hands?}
-\item{Sweat attacks}{Do you have sudden attacks of sweating?}
+\item{Clammy_hands}{Do you have clammy hands?}
+\item{Sweat_attacks}{Do you have sudden attacks of sweating?}
 \item{Clumsiness}{Do you notice that you behave clumsy?}
-\item{Wavering hands}{Are your hands wavering frequently, e.g. when lightning a cigarette or when holding a cup?}
-\item{Restless hands}{Do you notice that your hands are restless?}
-\item{Restless feet}{Do you notice that your feet are restless?}
-\item{Twitching eyes}{Do you notice unvoluntary twitching of your eyes?}
-\item{Twitching mouth}{Do you notice unvoluntary twitching of your mouth?}
+\item{Wavering_hands}{Are your hands wavering frequently, e.g. when lightning a cigarette or when holding a cup?}
+\item{Restless_hands}{Do you notice that your hands are restless?}
+\item{Restless_feet}{Do you notice that your feet are restless?}
+\item{Twitching_eyes}{Do you notice unvoluntary twitching of your eyes?}
+\item{Twitching_mouth}{Do you notice unvoluntary twitching of your mouth?}
 \item{Gender}{Gender of the participant}
 \item{Household}{Does participant live alone in a houshold or together with others?}
 \item{WestEast}{is the participant from East Germany (former GDR) or West Germany?}
@@ -36,7 +36,7 @@ Data from the Freiburg Complaint Checklist. The data contain all 8 items corresp
 Additionally, several person characteristics are available.
 }
 \examples{
-\dontrun{
+\donttest{
 data(tenseness)
 
 ## create a small subset of the data to speed up calculations
@@ -61,7 +61,9 @@ f.tense1 <- as.formula(paste("cbind(",paste(names(tenseness)[1:4],collapse=","),
 m.tense0 <- multordRS(f.tense0, data = tenseness, control = ctrl.multordRS(RS = FALSE))
 m.tense0
 
-## Multivariate adjacent categories model, with response style as a random effect, without explanatory variables
+
+## Multivariate adjacent categories model, with response style as a random effect, 
+## without explanatory variables
 m.tense1 <- multordRS(f.tense0, data = tenseness)
 m.tense1
 
@@ -70,7 +72,8 @@ m.tense1
 m.tense2 <- multordRS(f.tense1, data = tenseness, control = ctrl.multordRS(XforRS = FALSE))
 m.tense2
 
-## Multivariate adjacent categories model, with response style as a random effect, with explanatory variables for location AND response style
+## Multivariate adjacent categories model, with response style as a random effect, with 
+## explanatory variables for location AND response style
 m.tense3 <- multordRS(f.tense1, data = tenseness)
 m.tense3
 
@@ -83,19 +86,26 @@ plot(m.tense3)
 ####
 
 ## Multivariate cumulative model, without response style, without explanatory variables
-m.tense0.cumul <- multordRS(f.tense0, data = tenseness, control = ctrl.multordRS(RS = FALSE), model = "cumulative")
+m.tense0.cumul <- multordRS(f.tense0, data = tenseness, control = 
+  ctrl.multordRS(RS = FALSE), model = "cumulative")
+
 m.tense0.cumul
 
-## Multivariate cumulative model, with response style as a random effect, without explanatory variables
+## Multivariate cumulative model, with response style as a random effect, 
+## without explanatory variables
 m.tense1.cumul <- multordRS(f.tense0, data = tenseness, model = "cumulative")
 m.tense1.cumul
 
 ## Multivariate cumulative model, with response style as a random effect, 
 ## without explanatory variables for response style BUT for location
-m.tense2.cumul <- multordRS(f.tense1, data = tenseness, control = ctrl.multordRS(XforRS = FALSE), model = "cumulative")
+m.tense2.cumul <- multordRS(f.tense1, data = tenseness, 
+  control = ctrl.multordRS(XforRS = FALSE), model = "cumulative")
+  
 m.tense2.cumul
 
-## Multivariate cumulative model, with response style as a random effect, with explanatory variables for location AND response style
+## Multivariate cumulative model, with response style as a random effect, 
+## with explanatory variables 
+## for location AND response style
 m.tense3.cumul <- multordRS(f.tense1, data = tenseness, model = "cumulative")
 m.tense3.cumul
 

@@ -16,12 +16,15 @@ parameters (location and response style) corresponding to one covariate.}
 
 \item{...}{Further plot arguments.}
 }
+\value{
+No return value, called for side effects
+}
 \description{
 Plot function for a \code{MultOrdRS} object. Plots show coefficients of the explanatory variables, both with repect to location and response styles.
 The coefficient pairs are displayed as stars, where the rays represent (1-alpha) confidence intervals.
 }
 \examples{
-\dontrun{
+\donttest{
 data(tenseness)
 
 ## create a small subset of the data to speed up calculations
@@ -46,7 +49,9 @@ f.tense1 <- as.formula(paste("cbind(",paste(names(tenseness)[1:4],collapse=","),
 m.tense0 <- multordRS(f.tense0, data = tenseness, control = ctrl.multordRS(RS = FALSE))
 m.tense0
 
-## Multivariate adjacent categories model, with response style as a random effect, without explanatory variables
+
+## Multivariate adjacent categories model, with response style as a random effect, 
+## without explanatory variables
 m.tense1 <- multordRS(f.tense0, data = tenseness)
 m.tense1
 
@@ -55,7 +60,8 @@ m.tense1
 m.tense2 <- multordRS(f.tense1, data = tenseness, control = ctrl.multordRS(XforRS = FALSE))
 m.tense2
 
-## Multivariate adjacent categories model, with response style as a random effect, with explanatory variables for location AND response style
+## Multivariate adjacent categories model, with response style as a random effect, with 
+## explanatory variables for location AND response style
 m.tense3 <- multordRS(f.tense1, data = tenseness)
 m.tense3
 
@@ -68,30 +74,36 @@ plot(m.tense3)
 ####
 
 ## Multivariate cumulative model, without response style, without explanatory variables
-m.tense0.cumul <- multordRS(f.tense0, data = tenseness, control = ctrl.multordRS(RS = FALSE), model = "cumulative")
+m.tense0.cumul <- multordRS(f.tense0, data = tenseness, 
+  control = ctrl.multordRS(RS = FALSE), model = "cumulative")
 m.tense0.cumul
 
-## Multivariate cumulative model, with response style as a random effect, without explanatory variables
+## Multivariate cumulative model, with response style as a random effect, 
+## without explanatory variables
 m.tense1.cumul <- multordRS(f.tense0, data = tenseness, model = "cumulative")
 m.tense1.cumul
 
 ## Multivariate cumulative model, with response style as a random effect, 
 ## without explanatory variables for response style BUT for location
-m.tense2.cumul <- multordRS(f.tense1, data = tenseness, control = ctrl.multordRS(XforRS = FALSE), model = "cumulative")
+m.tense2.cumul <- multordRS(f.tense1, data = tenseness, 
+  control = ctrl.multordRS(XforRS = FALSE), model = "cumulative")
 m.tense2.cumul
 
-## Multivariate cumulative model, with response style as a random effect, with explanatory variables for location AND response style
+## Multivariate cumulative model, with response style as a random effect, with 
+## explanatory variables for location AND response style
 m.tense3.cumul <- multordRS(f.tense1, data = tenseness, model = "cumulative")
 m.tense3.cumul
 
 plot(m.tense3.cumul)
 
-###########################################################################
-## Examples from Schauberger and Tutz (2020) on data from the German Longitudinal Election Study (GLES) 2017
-###########################################################################
+#################################################################
+## Examples from Schauberger and Tutz (2020) 
+## Data from the German Longitudinal Election Study (GLES) 2017
+#################################################################
 
 ####
-## Source: German Longitudinal Election Study 2017 (Rossteutscher et al. 2017, https://doi.org/10.4232/1.12927)
+## Source: German Longitudinal Election Study 2017 
+## Rossteutscher et al. 2017, https://doi.org/10.4232/1.12927
 ####
 
 ## load GLES data
@@ -101,7 +113,8 @@ data(GLES17)
 GLES17[,7:11] <- scale(GLES17[,7:11])
 
 ## define formula
-f.GLES <- as.formula(cbind(RefugeeCrisis, ClimateChange, Terrorism, Globalization, Turkey, NuclearEnergy) ~ 
+f.GLES <- as.formula(cbind(RefugeeCrisis, ClimateChange, Terrorism, 
+                       Globalization, Turkey, NuclearEnergy) ~ 
                        Age + Gender + Unemployment + EastWest + Abitur)
 
 ## fit adjacent categories model without and with response style parameters
@@ -115,8 +128,11 @@ plot(m.GLES, main = "Adjacent categories model")
 
 
 ## fit cumulative model without and with response style parameters (takes pretty long!!!)
-m.GLES20 <- multordRS(f.GLES, data = GLES17,  model="cumul", control = ctrl.multordRS(opt.method = "nlminb", cores = 6, RS = FALSE))
-m.GLES2 <- multordRS(f.GLES, data = GLES17,  model="cumul", control = ctrl.multordRS(opt.method = "nlminb", cores = 6))
+m.GLES20 <- multordRS(f.GLES, data = GLES17,  model="cumul", 
+control = ctrl.multordRS(opt.method = "nlminb", cores = 6, RS = FALSE))
+
+m.GLES2 <- multordRS(f.GLES, data = GLES17,  model="cumul", 
+control = ctrl.multordRS(opt.method = "nlminb", cores = 6))
 
 m.GLES20
 m.GLES2
@@ -126,13 +142,13 @@ plot(m.GLES2, main = "Cumulative model")
 }
 }
 \references{
-Schauberger, Gunther and Tutz, Gerhard (2020): Multivariate Ordinal Random Effects Models Including Subject and Group Specific Response Style Effects, 
-\emph{Statistical Modelling}, to appear
+Schauberger, Gunther and Tutz, Gerhard (2021): Multivariate Ordinal Random Effects Models Including Subject and Group Specific Response Style Effects, 
+\emph{Statistical Modelling}, \url{https://journals.sagepub.com/doi/10.1177/1471082X20978034}
 }
 \seealso{
 \code{\link{multordRS}}, \code{\link{ctrl.multordRS}}
 }
 \author{
 Gunther Schauberger\cr \email{gunther.schauberger@tum.de}\cr
-\url{https://www.researchgate.net/profile/Gunther_Schauberger2}
+\url{https://orcid.org/0000-0002-0392-1580}
 }

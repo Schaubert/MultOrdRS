@@ -13,7 +13,7 @@ The data contain socio-demographic information about the participants as well as
 \item{Terrorism}{How afraid are you due to the international terrorism? (Likert scale from 1 (not afraid at all) to 7 (very afraid))}
 \item{Globalization}{How afraid are you due to the globalization? (Likert scale from 1 (not afraid at all) to 7 (very afraid))}
 \item{Turkey}{How afraid are you due to the political developments in Turkey? (Likert scale from 1 (not afraid at all) to 7 (very afraid))}
-\item{NuclearEnegery}{How afraid are you due to the use of nuclear energy? (Likert scale from 1 (not afraid at all) to 7 (very afraid))}
+\item{NuclearEnergy}{How afraid are you due to the use of nuclear energy? (Likert scale from 1 (not afraid at all) to 7 (very afraid))}
 \item{Age}{Age in years} 
 \item{Gender}{0: male, 1: female}
 \item{EastWest}{0: West Germany, 1: East Germany}
@@ -23,7 +23,7 @@ The data contain socio-demographic information about the participants as well as
 }
 \source{
 \url{https://gles-en.eu/} and 
-\url{https://doi.org/10.4232/1.12927}
+\doi{10.4232/1.12927}
 }
 \description{
 Data from the German Longitudinal Election Study (GLES) from 2017 (Rossteutscher  et
@@ -32,13 +32,15 @@ It collects pre- and post-election data for several federal elections, the
 data used here originate from the pre-election study for 2017.
 }
 \examples{
-\dontrun{
-###########################################################################
-## Examples from Schauberger and Tutz (2020) on data from the German Longitudinal Election Study (GLES) 2017
-###########################################################################
+\donttest{
+###############################################################
+## Examples from Schauberger and Tutz (2020) 
+## Data from the German Longitudinal Election Study (GLES) 2017
+###############################################################
 
 ####
-## Source: German Longitudinal Election Study 2017 (Rossteutscher et al. 2017, https://doi.org/10.4232/1.12927)
+## Source: German Longitudinal Election Study 2017 
+## Rossteutscher et al. 2017, https://doi.org/10.4232/1.12927
 ####
 
 ## load GLES data
@@ -48,7 +50,8 @@ data(GLES17)
 GLES17[,7:11] <- scale(GLES17[,7:11])
 
 ## define formula
-f.GLES <- as.formula(cbind(RefugeeCrisis, ClimateChange, Terrorism, Globalization, Turkey, NuclearEnergy) ~ 
+f.GLES <- as.formula(cbind(RefugeeCrisis, ClimateChange, Terrorism, 
+                       Globalization, Turkey, NuclearEnergy) ~ 
                        Age + Gender + Unemployment + EastWest + Abitur)
 
 ## fit adjacent categories model without and with response style parameters
@@ -62,8 +65,11 @@ plot(m.GLES, main = "Adjacent categories model")
 
 
 ## fit cumulative model without and with response style parameters (takes pretty long!!!)
-m.GLES20 <- multordRS(f.GLES, data = GLES17,  model="cumul", control = ctrl.multordRS(opt.method = "nlminb", cores = 6, RS = FALSE))
-m.GLES2 <- multordRS(f.GLES, data = GLES17,  model="cumul", control = ctrl.multordRS(opt.method = "nlminb", cores = 6))
+m.GLES20 <- multordRS(f.GLES, data = GLES17,  model="cumul", 
+control = ctrl.multordRS(opt.method = "nlminb", cores = 6, RS = FALSE))
+
+m.GLES2 <- multordRS(f.GLES, data = GLES17,  model="cumul", 
+control = ctrl.multordRS(opt.method = "nlminb", cores = 6))
 
 m.GLES20
 m.GLES2
@@ -74,9 +80,9 @@ plot(m.GLES2, main = "Cumulative model")
 }
 \references{
 Rossteutscher, S., Schmitt-Beck, R., Schoen, H., Wessels, B., Wolf, C., Bieber, I., Stovsand, L.-C., Dietz, M., and Scherer, P. (2017). 
-Pre-election cross section (GLES 2017). \emph{GESIS Data Archive, Cologne, ZA6800 Data file Version 2.0.0.}, \url{https://doi.org/10.4232/1.12927}.
+Pre-election cross section (GLES 2017). \emph{GESIS Data Archive, Cologne, ZA6800 Data file Version 2.0.0.}, \doi{10.4232/1.12927}.
 
-Schauberger, Gunther and Tutz, Gerhard (2020): Multivariate Ordinal Random Effects Models Including Subject and Group Specific Response Style Effects, 
-\emph{Statistical Modelling}, to appear
+Schauberger, Gunther and Tutz, Gerhard (2021): Multivariate Ordinal Random Effects Models Including Subject and Group Specific Response Style Effects, 
+\emph{Statistical Modelling}, \url{https://journals.sagepub.com/doi/10.1177/1471082X20978034}
 }
 \keyword{datasets}
